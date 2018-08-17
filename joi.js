@@ -113,6 +113,7 @@ toBeRepeater();
 
 addEvent(chat, 'touchmove', function () {
   isTouch = true;
+  clearInterval(csbsto);
 })
 addEvent(chat, 'touchend', function () {
   isTouch = false;
