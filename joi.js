@@ -1,9 +1,22 @@
 var joi = {};
 var chat = document.getElementById('chat');
+var select = document.getElementById('select');
 var chatTime;
 var chatLine = createChatLine();
 var timeLine = createTimeLine();
 var chatList = [];
+var isTouch = false;
+var addEvent = (function (){
+  if (window.attachEvent) {
+    return function (ele, event, func) {
+      ele.attachEvent('on' + event, func)
+    }
+  } else {
+    return function (ele, event, func, options) {
+      ele.addEventListener(event, func, typeof options === 'undefined' ? false : options)
+    }
+  }
+})();
 
 function createDiv (clazz) {
   var element = document.createElement('div');
@@ -44,13 +57,16 @@ function showTimeLine () {
 var csbsto;
 function chatScrollBottom() {
   clearInterval(csbsto)
+  if (isTouch) {
+    return
+  }
   var scrollBottom = chat.scrollHeight - chat.clientHeight - chat.scrollTop;
   csbsto = setInterval(function (){
     if ( chat.scrollTop + chat.clientHeight === chat.scrollHeight ) {
       clearInterval(csbsto)
     }
-    chat.scrollTop += scrollBottom/2
-  }, 84)
+    chat.scrollTop += 1
+  }, 1)
 }
 function say (options) {
   var cLine = chatLine.cloneNode(true);
@@ -84,33 +100,20 @@ function meSay (text) {
 }
 function toBeRepeater () {
   setTimeout(function () {
-    setTimeout(function (){
       joiSay('人类的本质是复读机~')
-    }, 0)
-    setTimeout(function () {
-      meSay('人类的本质是复读机~')
     }, 1000)
-    toBeRepeater()
-  }, 2000)
 }
 
-joiSay('人类的本质是复读机~')
-joiSay('人类的本质是复读机~')
-joiSay('人类的本质是复读机~')
-joiSay('人类的本质是复读机~')
-joiSay('人类的本质是复读机~')
-joiSay('人类的本质是复读机~')
-joiSay('人类的本质是复读机~')
-joiSay('人类的本质是复读机~')
-joiSay('人类的本质是复读机~')
-joiSay('人类的本质是复读机~')
-joiSay('人类的本质是复读机~')
-joiSay('人类的本质是复读机~')
-joiSay('人类的本质是复读机~')
-joiSay('人类的本质是复读机~')
-joiSay('人类的本质是复读机~')
-toBeRepeater()
+toBeRepeater();
 
-document.body.addEventListener('touchmove' , function(e){
-  e.preventDefault();
+
+addEvent(chat, 'touchmove', function () {
+  isTouch = true;
+})
+addEvent(chat, 'touchend', function () {
+  isTouch = false;
+})
+addEvent(select, 'click', function () {
+  meSay('人类的本质是复读机~');
+  toBeRepeater();
 })

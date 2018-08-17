@@ -21,7 +21,7 @@ body{
   position: absolute;
   width: 100%;
   top: 0;
-  bottom: 0;
+  bottom: 48px;
   overflow: auto;
   -webkit-overflow-scrolling: touch;
 }
@@ -41,12 +41,12 @@ body{
 .chatLine{
   padding: 5px 10px;
   overflow:hidden;
-  /* -webkit-animation-name: slideInUp;
+  -webkit-animation-name: slideInUp;
   animation-name: slideInUp;
   -webkit-animation-duration: .5s;
   animation-duration: .5s;
   -webkit-animation-fill-mode: both;
-  animation-fill-mode: both; */
+  animation-fill-mode: both;
 }
 .head{
   float: left;
@@ -84,8 +84,19 @@ body{
 #select{
   position: absolute;
   bottom: 0;
-  height: 100px;
+  height: 47px;
+  border-top: 1px solid #e6e6e8;
+  background-color: #f5f5f7;
   width: 100%;
+}
+#select:active{
+  background:#e6e6e8;
+}
+.option{
+  height: 47px;
+  font-size: 16px;
+  line-height: 47px;
+  text-align: center;
 }
 @-webkit-keyframes slideInUp {
   from {
