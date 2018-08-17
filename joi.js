@@ -41,7 +41,17 @@ function showTimeLine () {
   chat.appendChild(tLine);
   return tLine
 }
-
+var csbsto;
+function chatScrollBottom() {
+  clearInterval(csbsto)
+  var scrollBottom = chat.scrollHeight - chat.clientHeight - chat.scrollTop;
+  csbsto = setInterval(function (){
+    if ( chat.scrollTop + chat.clientHeight === chat.scrollHeight ) {
+      clearInterval(csbsto)
+    }
+    chat.scrollTop += scrollBottom/2
+  }, 84)
+}
 function say (options) {
   var cLine = chatLine.cloneNode(true);
   var cText = cLine.childNodes[1].childNodes[0];
@@ -55,7 +65,7 @@ function say (options) {
     text: options.text
   })
   chat.appendChild(cLine);
-  chat.scrollIntoView(0, chat.offsetHeight);
+  chatScrollBottom();
   return cLine
 }
 
@@ -72,7 +82,6 @@ function meSay (text) {
     text: text
   })
 }
-
 function toBeRepeater () {
   setTimeout(function () {
     setTimeout(function (){
@@ -85,6 +94,21 @@ function toBeRepeater () {
   }, 2000)
 }
 
+joiSay('人类的本质是复读机~')
+joiSay('人类的本质是复读机~')
+joiSay('人类的本质是复读机~')
+joiSay('人类的本质是复读机~')
+joiSay('人类的本质是复读机~')
+joiSay('人类的本质是复读机~')
+joiSay('人类的本质是复读机~')
+joiSay('人类的本质是复读机~')
+joiSay('人类的本质是复读机~')
+joiSay('人类的本质是复读机~')
+joiSay('人类的本质是复读机~')
+joiSay('人类的本质是复读机~')
+joiSay('人类的本质是复读机~')
+joiSay('人类的本质是复读机~')
+joiSay('人类的本质是复读机~')
 toBeRepeater()
 
 document.body.addEventListener('touchmove' , function(e){
