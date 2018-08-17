@@ -21,7 +21,8 @@ body{
   position: absolute;
   width: 100%;
   top: 0;
-  bottom: 48px;
+  bottom: 0px;
+  /* 手机端会多出48px bug bottom: 48px; */
   overflow: auto;
   -webkit-overflow-scrolling: touch;
 }
