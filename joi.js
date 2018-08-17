@@ -7,7 +7,7 @@ var chatList = [];
 
 function createDiv (clazz) {
   var element = document.createElement('div');
-  element.classList = clazz;
+  element.className = clazz;
   return element
 }
 
@@ -37,20 +37,16 @@ function showTimeLine () {
   }
   chatTime = now;
   tLine = timeLine.cloneNode(true);
-  tLine
-    .getElementsByClassName('time')[0]
-    .innerText = now.getHours() + ':' + now.getMinutes();
+  tLine.childNodes[0].innerText = now.getHours() + ':' + now.getMinutes();
   chat.appendChild(tLine);
   return tLine
 }
 
 function say (options) {
   var cLine = chatLine.cloneNode(true);
-  var cText = cLine
-  .getElementsByClassName('word')[0]
-  .getElementsByClassName('text')[0];
+  var cText = cLine.childNodes[1].childNodes[0];
 
-  cLine.classList += ' ' + options.name
+  cLine.className += ' ' + options.name
   cText.innerText = options.text;
   showTimeLine();
   chatList.push({
