@@ -91,6 +91,10 @@ body{
 }
 #select:active{
   background:#e6e6e8;
+  -webkit-user-select:none;
+  -moz-user-select:none;
+  -ms-user-select:none;
+  user-select:none;
 }
 .option{
   height: 47px;
