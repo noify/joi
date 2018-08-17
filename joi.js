@@ -87,6 +87,6 @@ function toBeRepeater () {
 
 toBeRepeater()
 
-window.onscroll = function (e) {
-  e.preventDefault()
-}
+document.body.addEventListener('touchmove' , function(e){
+  e.preventDefault();
+})
