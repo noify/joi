@@ -65,7 +65,11 @@ function chatScrollBottom() {
     if ( chat.scrollTop + chat.clientHeight === chat.scrollHeight ) {
       clearInterval(csbsto)
     }
-    chat.scrollTop += 1
+    if (scrollBottom > 150) {
+      chat.scrollTop += scrollBottom/20
+    } else {
+      chat.scrollTop += 1
+    }
   }, 1)
 }
 function say (options) {
