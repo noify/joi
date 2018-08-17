@@ -1,7 +1,10 @@
+*{
+  -webkit-tap-highlight-color:rgba(255,255,255,0)
+}
 body{
   margin: 0px;
 }
-.frame{
+#frame{
   position: absolute;
   top: 0;
   right: 0;
@@ -13,4 +16,90 @@ body{
   max-height: 667px;
   height: 100vh;
   background-color: #ebebeb;
+  overflow: auto;
+}
+#chat{
+  -webkit-overflow-scrolling: touch;
+}
+.timeLine{
+  padding: 5px 10px;
+  text-align: center;
+}
+.time{
+  display: inline;
+  background: #cfcfcf;
+  color: #fff;
+  border-radius: 5px;
+  font-size: 12px;
+  padding: 2px 5px;
+  margin: 0 auto;
+}
+.chatLine{
+  padding: 5px 10px;
+  overflow:hidden;
+  -webkit-animation-name: slideInUp;
+  animation-name: slideInUp;
+  -webkit-animation-duration: .5s;
+  animation-duration: .5s;
+  -webkit-animation-fill-mode: both;
+  animation-fill-mode: both;
+}
+.head{
+  float: left;
+  width: 35px;
+  height: 35px;
+  background-size: 35px 35px;
+}
+.word {
+  margin: 0 45px;
+}
+.text{
+  display:inline-block;
+  word-break: break-all;
+  background: #fff;
+  padding: 8px;
+  border: 0.5px solid #e5e5e5;
+  border-radius: 4px;
+  font-size: 16px;
+}
+.joi .head{
+  background-image: url('./images/joi.jpg');
+}
+.me .head{
+  float: right;
+  margin-left: 10px;
+}
+.me .text{
+  float: right;
+  background: #a0e75a;
+  border-color: #87cd53;
+}
+.me .head{
+  background-image: url('./images/default.jpg');
+}
+
+@-webkit-keyframes slideInUp {
+  from {
+    -webkit-transform: translate3d(0, 100%, 0);
+    transform: translate3d(0, 100%, 0);
+    visibility: visible;
+  }
+
+  to {
+    -webkit-transform: translate3d(0, 0, 0);
+    transform: translate3d(0, 0, 0);
+  }
+}
+
+@keyframes slideInUp {
+  from {
+    -webkit-transform: translate3d(0, 100%, 0);
+    transform: translate3d(0, 100%, 0);
+    visibility: visible;
+  }
+
+  to {
+    -webkit-transform: translate3d(0, 0, 0);
+    transform: translate3d(0, 0, 0);
+  }
 }
