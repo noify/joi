@@ -28,9 +28,9 @@ body{
   display: inline;
   background: #cfcfcf;
   color: #fff;
-  border-radius: 5px;
+  border-radius: 4px;
   font-size: 12px;
-  padding: 2px 5px;
+  padding: 2px 6px;
   margin: 0 auto;
 }
 .chatLine{
