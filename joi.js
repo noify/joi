@@ -1,7 +1,10 @@
 var joi = {};
+var frame = document.getElementById('frame');
 var chat = document.getElementById('chat');
 var select = document.getElementById('select');
 var chatTime;
+var csbsto;
+var isScrollBottom = true;
 var chatLine = createChatLine();
 var timeLine = createTimeLine();
 var chatList = [];
@@ -58,23 +61,8 @@ function showTimeLine () {
   chat.appendChild(tLine);
   return tLine
 }
-var csbsto;
-function chatScrollBottom() {
-  clearInterval(csbsto)
-  if (isTouch) {
-    return
-  }
-  var scrollBottom = chat.scrollHeight - chat.clientHeight - chat.scrollTop;
-  csbsto = setInterval(function (){
-    if ( chat.scrollTop + chat.clientHeight === chat.scrollHeight ) {
-      clearInterval(csbsto)
-    }
-    if (scrollBottom > 150) {
-      chat.scrollTop += scrollBottom/20
-    } else {
-      chat.scrollTop += 1
-    }
-  }, 1)
+function frameScrollBottom() {
+  chat.lastChild.scrollIntoView();
 }
 function say (options) {
   var cLine = chatLine.cloneNode(true);
@@ -84,12 +72,12 @@ function say (options) {
   cText.innerText = options.text;
   showTimeLine();
   chatList.push({
+    el: cLine,
     name: options.name,
     time: new Date(),
     text: options.text
   })
   chat.appendChild(cLine);
-  chatScrollBottom();
   return cLine
 }
 
@@ -98,6 +86,9 @@ function joiSay (text) {
     name: 'joi',
     text: text
   })
+  if (isScrollBottom) {
+    frameScrollBottom();
+  }
 }
 
 function meSay (text) {
@@ -105,23 +96,21 @@ function meSay (text) {
     name: 'me',
     text: text
   })
+  frameScrollBottom();
+  isScrollBottom = true;
 }
 function toBeRepeater () {
   setTimeout(function () {
-      joiSay('人类的本质是复读机~')
+      joiSay('人类的本质是复读机~');
     }, 1000)
 }
 
 toBeRepeater();
 
+addEvent(frame, 'touchmove', function () {
+  isScrollBottom = false;
+})
 
-addEvent(chat, 'touchmove', function () {
-  isTouch = true;
-  clearInterval(csbsto);
-})
-addEvent(chat, 'touchend', function () {
-  isTouch = false;
-})
 addEvent(select, 'click', function () {
   meSay('人类的本质是复读机~');
   toBeRepeater();
