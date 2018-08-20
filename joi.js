@@ -1,10 +1,10 @@
 var joi = {};
+var html = document.getElementsByTagName('html')[0];
 var frame = document.getElementById('frame');
 var chat = document.getElementById('chat');
 var select = document.getElementById('select');
 var chatTime;
 var csbsto;
-var isScrollBottom = true;
 var chatLine = createChatLine();
 var timeLine = createTimeLine();
 var chatList = [];
@@ -20,6 +20,32 @@ var addEvent = (function (){
     }
   }
 })();
+(function() {
+  var lastTime = 0;
+  var vendors = ['webkit', 'moz'];
+  for(var x = 0; x < vendors.length && !window.requestAnimationFrame; ++x) {
+      window.requestAnimationFrame = window[vendors[x] + 'RequestAnimationFrame'];
+      window.cancelAnimationFrame = window[vendors[x] + 'CancelAnimationFrame'] ||    // Webkit中此取消方法的名字变了
+                                    window[vendors[x] + 'CancelRequestAnimationFrame'];
+  }
+
+  if (!window.requestAnimationFrame) {
+      window.requestAnimationFrame = function(callback, element) {
+          var currTime = new Date().getTime();
+          var timeToCall = Math.max(0, 16.7 - (currTime - lastTime));
+          var id = window.setTimeout(function() {
+              callback(currTime + timeToCall);
+          }, timeToCall);
+          lastTime = currTime + timeToCall;
+          return id;
+      };
+  }
+  if (!window.cancelAnimationFrame) {
+      window.cancelAnimationFrame = function(id) {
+          clearTimeout(id);
+      };
+  }
+}());
 
 function PrefixInteger(num, n) {
   return (Array(n).join(0) + num).slice(-n);
@@ -62,11 +88,21 @@ function showTimeLine () {
   return tLine
 }
 function frameScrollBottom() {
-  chat.lastChild.scrollIntoView({
-    behavior: 'smooth',
-    block: 'end',
-    inline: 'nearest'
-  });
+  var scrollBottom;
+  if (html.scrollHeight <= html.clientHeight) {
+    return
+  }
+  isTouch = false;
+  !!csbsto && cancelAnimationFrame(csbsto)
+  scrollBottom = html.scrollHeight - html.clientHeight - html.scrollTop;
+  csbsto = function (){
+    html.scrollTop += 9999; // ???
+    console.log(html.scrollTop)
+    if (!isTouch && html.scrollTop + html.clientHeight !== html.scrollHeight ) {
+      requestAnimationFrame(csbsto)
+    }
+  }
+  csbsto()
 }
 function say (options) {
   var cLine = chatLine.cloneNode(true);
@@ -86,6 +122,8 @@ function say (options) {
 }
 
 function joiSay (text) {
+  var isScrollBottom = false;
+  isScrollBottom = html.scrollTop + html.clientHeight === html.scrollHeight;
   say({
     name: 'joi',
     text: text
@@ -101,7 +139,6 @@ function meSay (text) {
     text: text
   })
   frameScrollBottom();
-  isScrollBottom = true;
 }
 function toBeRepeater () {
   setTimeout(function () {
@@ -112,7 +149,7 @@ function toBeRepeater () {
 toBeRepeater();
 
 addEvent(frame, 'touchmove', function () {
-  isScrollBottom = false;
+  isTouch = true;
 })
 
 addEvent(select, 'click', function () {
