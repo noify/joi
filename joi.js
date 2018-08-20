@@ -62,7 +62,11 @@ function showTimeLine () {
   return tLine
 }
 function frameScrollBottom() {
-  chat.lastChild.scrollIntoView();
+  chat.lastChild.scrollIntoView({
+    behavior: 'smooth',
+    block: 'end',
+    inline: 'nearest'
+  });
 }
 function say (options) {
   var cLine = chatLine.cloneNode(true);
