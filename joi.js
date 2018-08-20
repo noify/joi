@@ -96,7 +96,7 @@ function frameScrollBottom() {
   !!csbsto && cancelAnimationFrame(csbsto)
   scrollBottom = html.scrollHeight - html.clientHeight - html.scrollTop;
   csbsto = function (){
-    html.scrollTop += 9999; // ???
+    html.scrollTop += scrollBottom/12; // ???
     console.log(html.scrollTop)
     if (!isTouch && html.scrollTop + html.clientHeight !== html.scrollHeight ) {
       requestAnimationFrame(csbsto)

@@ -6,7 +6,7 @@ html, body{
 }
 html{
   background: #f2f2f2;
-  scroll-behavior: smooth;
+  /* scroll-behavior: smooth; */
 }
 body{
   margin: 0px;
