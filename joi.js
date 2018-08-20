@@ -89,21 +89,21 @@ function showTimeLine () {
 }
 function frameScrollBottom() {
   var scrollBottom;
+  return; // 待修复 bug
   if (html.scrollHeight <= html.clientHeight) {
     return
   }
   isTouch = false;
-  !!csbsto && cancelAnimationFrame(csbsto)
   scrollBottom = html.scrollHeight - html.clientHeight - html.scrollTop;
   csbsto = function (){
-    html.scrollTop += scrollBottom/12; // ???
-    console.log(html.scrollTop)
+    html.scrollTop += scrollBottom/12; // bug iphone中scrollTop一直为0
     if (!isTouch && html.scrollTop + html.clientHeight !== html.scrollHeight ) {
       requestAnimationFrame(csbsto)
     }
   }
-  csbsto()
+  csbsto();
 }
+
 function say (options) {
   var cLine = chatLine.cloneNode(true);
   var cText = cLine.childNodes[1].childNodes[0];
@@ -118,6 +118,7 @@ function say (options) {
     text: options.text
   })
   chat.appendChild(cLine);
+  cLine.scrollIntoView(); // 临时解决scrollTop一直为0的bug
   return cLine
 }
 
