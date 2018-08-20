@@ -18,6 +18,10 @@ var addEvent = (function (){
   }
 })();
 
+function PrefixInteger(num, n) {
+  return (Array(n).join(0) + num).slice(-n);
+}
+
 function createDiv (clazz) {
   var element = document.createElement('div');
   element.className = clazz;
@@ -50,7 +54,7 @@ function showTimeLine () {
   }
   chatTime = now;
   tLine = timeLine.cloneNode(true);
-  tLine.childNodes[0].innerText = now.getHours() + ':' + now.getMinutes();
+  tLine.childNodes[0].innerText = PrefixInteger(now.getHours(), 0) + ':' + PrefixInteger(now.getMinutes(), 2);
   chat.appendChild(tLine);
   return tLine
 }

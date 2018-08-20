@@ -1,5 +1,5 @@
 *{
-  -webkit-tap-highlight-color:rgba(255,255,255,0)
+  -webkit-tap-highlight-color:transparent!important;
 }
 html, body{
   height: 100%;
@@ -8,17 +8,14 @@ body{
   margin: 0px;
 }
 #frame{
-  position: absolute;
-  top: 0;
-  right: 0;
-  bottom: 0;
-  left: 0;
-  margin: auto;
+  position: relative;
+  margin: 0 auto;
   max-width: 480px;
   width: 100%;
   height: 100%;
   background-color: #ebebeb;
   overflow: hidden;
+  font-family: Helvetica Neue,Helvetica,Arial,sans-serif;
 }
 #chat{
   position: relative;
@@ -86,11 +83,17 @@ body{
   background-image: url('./images/default.jpg');
 }
 #select{
-  position: absolute;
+  position: fixed;
+  overflow: hidden;
   bottom: 0;
-  height: 47px;
+  left: 0;
+  right: 0;
+  color: #333;
+  z-index: 999;
+  min-height: 47px;
   border-top: 1px solid #e6e6e8;
-  width: 100%;
+  margin: 0 auto;
+  max-width: 480px;
   -webkit-user-select:none;
   -moz-user-select:none;
   -ms-user-select:none;
